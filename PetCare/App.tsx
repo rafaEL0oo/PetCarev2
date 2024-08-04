@@ -1,35 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Logo } from './components/Logo';
-import { WhiteButton } from './components/WhiteButton';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { LogonScreen } from './screens/LogonScreen';
+
+const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-       <LinearGradient
-        // Background Linear Gradient
-        colors={['transparent','#1BE9F6']}
-        style={styles.background}
-      />
-      <Logo/>
-      <WhiteButton/>
-    </View>
+      <NavigationContainer>
+      <Stack.Navigator initialRouteName="Logon">
+        <Stack.Screen name="Logon" component={LogonScreen} />
+        {/* <Stack.Screen name="Details" component={DetailsScreen} /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
+    
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    top:100,
-  },
-  background: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height:'100%'
-  }
-});

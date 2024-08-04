@@ -8,16 +8,14 @@ export function Logo(){
             width: 200,
             height: 200
         }
-    return (<View>
-        <Image  style={styles.image} source={require('../images/PetCarelogo.png')}></Image>
-    </View>);
+    return (
+        <Image  style={styles.image} source={require('../images/PetCarelogo.png')}></Image>);
 }
 
 const styles = StyleSheet.create({
-    container:{
-    },
     image: {
       width: 250,
       height: 250,
+      top:100
     },
   });
