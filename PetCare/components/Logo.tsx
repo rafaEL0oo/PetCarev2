@@ -9,7 +9,7 @@ export function Logo(){
             height: 200
         }
     return (
-        <Image  style={styles.image} source={require('../images/PetCarelogo.png')}></Image>);
+        <Image  style={styles.image} source={require('../images/PetCareLogo.png')}></Image>);
 }
 
 const styles = StyleSheet.create({
