@@ -2,9 +2,12 @@ import { StyleSheet, View, Text } from 'react-native';
 import { Logo } from '../components/Logo';
 import { CustomButton } from '../components/CustomButton';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from 'react';
+import { EmailLogonForm } from '../components/EmailLogonForm';
 
 
 export function LogonScreen({ navigation }){
+  const [emailLogonShown,setEmailLogonShown] = useState(false)
     return   (
          <View style={styles.container}>
              <LinearGradient
@@ -14,15 +17,22 @@ export function LogonScreen({ navigation }){
       />
       <Logo/>
         <View style={styles.buttonsContainer}>
-            <CustomButton text="Continue with Google"/>
-            <CustomButton text="Continue with Apple"/>
-            <CustomButton text="Sign in with mail"/>
-            <Text>Or</Text>
-            <CustomButton text="Create account" buttonColor='#0F65F9'/>
+            {emailLogonShown ? <EmailLogonForm cancelClick={setEmailLogonShown}/> : (
+              <>
+              <CustomButton text="Zaloguj przez Google" onButtonClick={()=>{}}/>
+              <CustomButton text="Zaloguj przez Apple" onButtonClick={()=>{}}/>
+              <CustomButton text="Zaloguj przez mail" onButtonClick={()=>{setEmailLogonShown(true)}}/>
+              <Text>Or</Text>
+              <CustomButton text="Utwórz konto" buttonColor='#0F65F9' onButtonClick={()=>{}}/>
+              <CustomButton text="Pomiń" onButtonClick={()=>{navigation.navigate('Home')}}/>
+              </>
+            )
+            
+            }
         </View>
       </View>
-        )
-        }
+        );
+}
 
 
 const styles = StyleSheet.create({
