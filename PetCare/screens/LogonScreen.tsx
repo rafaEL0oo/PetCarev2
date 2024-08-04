@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     buttonsContainer:{
         flex:1,
-        top:150,
+        top: 200,
         gap:20,
         alignItems:'center'
     }
