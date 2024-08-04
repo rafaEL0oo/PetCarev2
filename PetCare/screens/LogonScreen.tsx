@@ -8,6 +8,7 @@ import { EmailLogonForm } from '../components/EmailLogonForm';
 
 export function LogonScreen({ navigation }){
   const [emailLogonShown,setEmailLogonShown] = useState(false)
+  const [singInShown,setSingInShown]= useState(false)
     return   (
          <View style={styles.container}>
              <LinearGradient
@@ -22,12 +23,11 @@ export function LogonScreen({ navigation }){
               <CustomButton text="Zaloguj przez Google" onButtonClick={()=>{}} logo="google"/>
               <CustomButton text="Zaloguj przez Apple" onButtonClick={()=>{}} logo="apple"/>
               <CustomButton text="Zaloguj przez mail" onButtonClick={()=>{setEmailLogonShown(true)}}/>
-              <Text>Or</Text>
-              <CustomButton text="Utwórz konto" buttonColor='#0F65F9' onButtonClick={()=>{}}/>
+              <Text>Lub</Text>
+              <CustomButton text="Utwórz konto" buttonColor='#0F65F9' onButtonClick={()=>{navigation.navigate('SignIn')}}/>
               <CustomButton text="Pomiń" onButtonClick={()=>{navigation.navigate('Home')}}/>
               </>
             )
-            
             }
         </View>
       </View>
