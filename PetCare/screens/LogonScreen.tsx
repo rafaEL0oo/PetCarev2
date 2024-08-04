@@ -12,7 +12,7 @@ export function LogonScreen({ navigation }){
          <View style={styles.container}>
              <LinearGradient
         // Background Linear Gradient
-        colors={['transparent','#1BE9F6']}
+        colors={['transparent','#6bcfe3']}
         style={styles.background}
       />
       <Logo/>
