@@ -1,5 +1,8 @@
 import { StyleSheet, TextInput, Text } from 'react-native';
 import { CustomButton } from './CustomButton';
+import auth from '@react-native-firebase/auth';
+
+
 export function EmailLogonForm({cancelClick}){
     return (<>
         <TextInput style={styles.input} placeholder='Email'/>
