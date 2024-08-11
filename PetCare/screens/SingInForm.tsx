@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput, Text, View, Alert } from 'react-native';
-import { CustomButton } from './CustomButton';
-import { Logo } from './Logo';
+import { CustomButton } from '../components/CustomButton';
+import { Logo } from '../components/Logo';
 import { LinearGradient } from 'expo-linear-gradient';
 import auth from '@react-native-firebase/auth';
 import { useState } from 'react';
