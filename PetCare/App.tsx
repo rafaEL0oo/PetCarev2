@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LogonScreen } from './screens/LogonScreen';
 import { HomePage } from './screens/HomePage';
-import { SingInForm } from './components/SingInForm';
+import { SingInForm } from './screens/SingInForm';
 
 const Stack = createNativeStackNavigator() ;
 
