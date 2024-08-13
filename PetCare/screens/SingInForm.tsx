@@ -2,38 +2,23 @@ import { StyleSheet, TextInput, Text, View, Alert } from 'react-native';
 import { CustomButton } from '../components/CustomButton';
 import { Logo } from '../components/Logo';
 import { LinearGradient } from 'expo-linear-gradient';
-import auth from '@react-native-firebase/auth';
 import { useState } from 'react';
-import db from "@react-native-firebase/database"
-import firebase from '@react-native-firebase/app';
+import { FIREBASE_AUTH, FIREBASE_DB } from '../components/FireBaseAuth';
+
 
 export function SingInForm({navigation}){
     const [userName,setUserName] = useState("")
     const [userEmail,setUserEmail] = useState("")
     const [userPassword,setUserPassword] = useState("")
 
-    const config = {
-        apiKey: "AIzaSyCsU-nr2BroJLH88HsL-QcSaKf3kMMLqtQ",
-        authDomain: "firebase-adminsdk-bxqv7@petcare-da0d2.iam.gserviceaccount.com",
-        projectId: "petcare-da0d2",
-        storageBucket: "petcare-da0d2.appspot.com",
-        messagingSenderId: "799144242076",
-        appId: "1:799144242076:android:679ce795f817d20b887659",
-        measurementId: "452898184",
-        databaseURL:"https://petcare-da0d2-default-rtdb.firebaseio.com/"
-      }
-
-      !firebase.apps.length ? firebase.initializeApp(config) : firebase.app()
-
     async function createProfile(response:any){
-        db().ref(`/users/${response.user.uid}`).set({userName})
-        db().ref(`/users/${response.user.uid}/pets`).set([])
+        FIREBASE_DB.ref(`/users/${response.user.uid}`).set({userName})
     }
 
     async function CreateNewUser(){
         if(userEmail != "" && userPassword != ""){
             try{
-                const response = await auth().createUserWithEmailAndPassword(userEmail,userPassword)
+                const response = await FIREBASE_AUTH.createUserWithEmailAndPassword(userEmail,userPassword)
             
                 if(response.user){
                     await createProfile(response)

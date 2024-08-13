@@ -18,7 +18,7 @@ export function LogonScreen({ navigation }){
       />
       <Logo/>
         <View style={styles.buttonsContainer}>
-            {emailLogonShown ? <EmailLogonForm cancelClick={setEmailLogonShown}/> : (
+            {emailLogonShown ? <EmailLogonForm cancelClick={setEmailLogonShown} navigation={navigation}/> : (
               <>
               <CustomButton text="Zaloguj przez Google" onButtonClick={()=>{}} logo="google"/>
               <CustomButton text="Zaloguj przez Apple" onButtonClick={()=>{}} logo="apple"/>

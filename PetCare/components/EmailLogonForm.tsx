@@ -1,13 +1,26 @@
-import { StyleSheet, TextInput, Text } from 'react-native';
+import { StyleSheet, TextInput, Text, Alert} from 'react-native';
 import { CustomButton } from './CustomButton';
-import auth from '@react-native-firebase/auth';
+import { useState } from 'react';
+import { FIREBASE_AUTH } from './FireBaseAuth';
 
 
-export function EmailLogonForm({cancelClick}){
+export function EmailLogonForm({cancelClick, navigation}){
+    const [email,setEmail] = useState("")
+    const [password,setPassword] = useState("")
+    async function Login(){
+        try{
+            const response = await FIREBASE_AUTH.signInWithEmailAndPassword(email,password)
+            // console.log(response.user.uid)
+            navigation.navigate('Home', response.user.uid)
+        } catch(e){
+            Alert.alert("Błąd logowania!","Niepoprawne dane logowania.")
+        }
+    }
+
     return (<>
-        <TextInput style={styles.input} placeholder='Email'/>
-        <TextInput secureTextEntry={true} style={styles.input} placeholder='Hasło'/>
-        <CustomButton text="Zaloguj" onButtonClick={()=>{}}/>
+        <TextInput onChangeText={setEmail} style={styles.input} placeholder='Email'/>
+        <TextInput onChangeText={setPassword} secureTextEntry={true} style={styles.input} placeholder='Hasło'/>
+        <CustomButton text="Zaloguj" onButtonClick={Login}/>
         <Text onPress={()=>{cancelClick(false)}}>Anuluj</Text>  
     </>
     );
