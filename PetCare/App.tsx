@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LogonScreen } from './screens/LogonScreen';
 import { HomePage } from './screens/HomePage';
 import { SingInForm } from './screens/SingInForm';
+import { AddPetForm } from './screens/AddPetForm';
 
 const Stack = createNativeStackNavigator() ;
 
@@ -16,6 +17,7 @@ export default function App() {
         <Stack.Screen options={pageOption} name="Logon" component={LogonScreen} />
         <Stack.Screen options={pageOption} name="Home" component={HomePage} />
         <Stack.Screen options={pageOption} name="SignIn" component={SingInForm} />
+        <Stack.Screen options={pageOption} name="AddPetForm" component={AddPetForm} />
       </Stack.Navigator>
     </NavigationContainer>
     
