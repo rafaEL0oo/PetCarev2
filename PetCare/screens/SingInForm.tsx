@@ -13,6 +13,7 @@ export function SingInForm({navigation}){
 
     async function createProfile(response:any){
         FIREBASE_DB.ref(`/users/${response.user.uid}`).set({userName})
+        FIREBASE_DB.ref(`/users/${response.user.uid}/pets`).set("null")
     }
 
     async function CreateNewUser(){

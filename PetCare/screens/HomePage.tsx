@@ -12,8 +12,13 @@ export function HomePage({ route, navigation }){
             try{
                 const response = await FIREBASE_DB.ref(`/users/${uid}`).once('value');
                 if(response.exists()){
-                    console.log(response)
-                    setUserDetails(response)
+                    const parsedItems = response ? Object.keys(response).map(key => ({ id: key, ...response[key] })) : [];
+                    console.log(parsedItems)
+                    const userValues = {"id": parsedItems[0].key ,...parsedItems[0].value}
+                    if(userValues.pets === "null"){
+                        navigation.navigate('AddPetForm', userValues, navigation)
+                    }
+                    setUserDetails(userValues)
                 }
             }catch(e){
                 console.log(e)
@@ -23,7 +28,8 @@ export function HomePage({ route, navigation }){
     },[uid])
     
     return <View>
-        {userDetails ? (<Text>User Name:{userDetails['userName']} </Text>) : (<Text>Loading...</Text>)}
+        {userDetails ? (<Text>User Name: {userDetails["userName"]} </Text>) : (<Text>Loading...</Text>)}
         <CustomButton text="Back" onButtonClick={()=>{navigation.navigate('Logon')}}/>
+        {/* Add Pet form or choose pet view */}
         </View>
 }
