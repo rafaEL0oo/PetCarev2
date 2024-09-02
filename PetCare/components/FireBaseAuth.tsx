@@ -1,6 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import firebase from '@react-native-firebase/app';
 import db from "@react-native-firebase/database"
+import firestoreDb from "firebase/firestore"; 
 
 
 const config = {
@@ -19,3 +20,4 @@ const config = {
 export const FIREBASE_APP = firebase.initializeApp(config)
 export const FIREBASE_AUTH = auth()
 export const FIREBASE_DB = db()
+export const FIREBASE_FIRESTORE_DB = firestoreDb.getFirestore()
