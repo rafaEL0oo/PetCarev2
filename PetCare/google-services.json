@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "799144242076",
+    "firebase_url": "https://petcare-da0d2-default-rtdb.firebaseio.com",
     "project_id": "petcare-da0d2",
     "storage_bucket": "petcare-da0d2.appspot.com"
   },
