@@ -3,7 +3,7 @@ import { CustomButton } from '../components/CustomButton';
 import { Logo } from '../components/Logo';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
-import { FIREBASE_AUTH, FIREBASE_DB } from '../components/FireBaseAuth';
+import { FIREBASE_AUTH, FIRESTORE_DB } from '../components/FireBaseAuth';
 
 
 export function SingInForm({navigation}){
@@ -12,9 +12,26 @@ export function SingInForm({navigation}){
     const [userPassword,setUserPassword] = useState("")
 
     async function createProfile(response:any){
-        FIREBASE_DB.ref(`/users/${response.user.uid}`).set({userName})
-        FIREBASE_DB.ref(`/users/${response.user.uid}/pets`).set("null")
+        try{
+            await FIRESTORE_DB.collection('users').doc(response.user.uid).set({
+                name: userName,
+                email: userEmail,
+                userId: response.user.uid,
+                petsOwned:[],
+                petsShared:[]
+                });
+            return response.user.uid
+        }catch(e){
+            console.log("Something wen wrong.")
+        }
     }
+    
+    // async function TestFunctions(){
+    //     const usersSnapshot = await FIRESTORE_DB.collection('users').get();
+    //     usersSnapshot.forEach(doc => {
+    //     console.log(doc.id, '=>', doc.data()); // Wyświetli każdy dokument
+    //     });
+    // }
 
     async function CreateNewUser(){
         if(userEmail != "" && userPassword != ""){
@@ -22,8 +39,10 @@ export function SingInForm({navigation}){
                 const response = await FIREBASE_AUTH.createUserWithEmailAndPassword(userEmail,userPassword)
             
                 if(response.user){
-                    await createProfile(response)
-                    Alert.alert("Profile created!")
+                    const newUser = await createProfile(response)
+                    // Alert.alert("Profile created!")
+                    // console.log(newUser)
+                    navigation.navigate("Home", newUser, navigation)
                 }
             } catch(e){
                 console.log(e)
@@ -43,7 +62,8 @@ export function SingInForm({navigation}){
         <TextInput style={styles.input} placeholder='Email' onChangeText={setUserEmail}/>
         <TextInput secureTextEntry={true} style={styles.input} placeholder='Hasło' onChangeText={setUserPassword}/>
         <CustomButton text="Utwórz konto" onButtonClick={CreateNewUser} buttonColor='#0F65F9'/>
-        <Text onPress={()=>{navigation.navigate('Logon')}}>Anuluj</Text>  
+        <Text onPress={()=>{navigation.navigate('Logon')}}>Anuluj</Text> 
+        {/* <Text onPress={TestFunctions}>Test</Text>   */}
     </View>
     </View>
 )

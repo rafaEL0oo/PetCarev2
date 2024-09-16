@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import { AnimalImage } from '../components/AnimalImage';
-import { FIREBASE_DB } from "../components/FireBaseAuth";
+import { FIRESTORE_DB } from "../components/FireBaseAuth";
 
 
 export function AddPetForm({route, navigation}){
@@ -15,17 +15,33 @@ export function AddPetForm({route, navigation}){
   const [petName, setPetName] = useState("");
 
   async function AddPetToUserDB(){
-    console.log(userDetails.id)
-    console.log(petName)
-    console.log(animalType)
+    //Pobieramy referencje DB
+    const newPetRef = FIRESTORE_DB.collection('pets').doc(); 
 
-    FIREBASE_DB.ref(`/users/${userDetails.id}/pets`).set({petName, animalType})
+    // Zapisuje dane przy użyciu set()
+    newPetRef.set({
+      name: petName,
+      type: animalType
+    })
+    .then(() => {
+      // Po pomyślnym zapisaniu, dodajemy wpis z id zwierzęcia do usera
+      console.log("Pet Added to DB, ID: ", newPetRef.id);
+      const refDoc = FIRESTORE_DB.collection('users').doc(userDetails.userId)
+      
+      refDoc.update({petsOwned: [...userDetails.petsOwned, newPetRef.id]})
+    })
+    .catch((error) => {
+      console.error("Błąd podczas tworzenia dokumentu: ", error);
+    });
+   
+
   }
 
   async function AddPet(){
     try{
       await AddPetToUserDB()
-      console.log("Pet Added")
+      console.log("Pet Added to user")
+      //Go to Pet Site
     }catch(e){
       console.log(e)
     }

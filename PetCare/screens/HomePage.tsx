@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { CustomButton } from '../components/CustomButton';
-import { FIREBASE_DB } from "../components/FireBaseAuth";
+import { FIRESTORE_DB } from "../components/FireBaseAuth";
 
 export function HomePage({ route, navigation }){
     const [userDetails, setUserDetails] = useState(null)
-    const uid = route.params;
+    const userLogedOn = route.params;
 
     useEffect(()=>{
         async function GetLogonUserDetails(){
             try{
-                const response = await FIREBASE_DB.ref(`/users/${uid}`).once('value');
-                if(response.exists()){
-                    const parsedItems = response ? Object.keys(response).map(key => ({ id: key, ...response[key] })) : [];
-                    console.log(parsedItems)
-                    const userValues = {"id": parsedItems[0].key ,...parsedItems[0].value}
-                    if(userValues.pets === "null"){
-                        navigation.navigate('AddPetForm', userValues, navigation)
-                    }
-                    setUserDetails(userValues)
+                const response = await FIRESTORE_DB.collection('users').doc(userLogedOn).get()
+                const userData = response._data
+                const ownedPets = response._data.petsOwned
+                const sheredPets = response._data.petsShared
+                const allPets = ownedPets.concat(sheredPets)
+                if(allPets.length === 0){
+                    navigation.navigate('AddPetForm', userData, navigation)
                 }
+                setUserDetails(userData)
+
             }catch(e){
                 console.log(e)
             }
         }
         GetLogonUserDetails()
-    },[uid])
+    },[userLogedOn])
     
     return <View>
         {userDetails ? (<Text>User Name: {userDetails["userName"]} </Text>) : (<Text>Loading...</Text>)}

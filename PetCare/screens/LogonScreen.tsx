@@ -25,7 +25,6 @@ export function LogonScreen({ navigation }){
               <CustomButton text="Zaloguj przez mail" onButtonClick={()=>{setEmailLogonShown(true)}}/>
               <Text>Lub</Text>
               <CustomButton text="Utwórz konto" buttonColor='#0F65F9' onButtonClick={()=>{navigation.navigate('SignIn')}}/>
-              <CustomButton text="Pomiń" onButtonClick={()=>{navigation.navigate('Home')}}/>
               </>
             )
             }
