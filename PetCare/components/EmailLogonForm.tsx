@@ -11,7 +11,7 @@ export function EmailLogonForm({cancelClick, navigation}){
         try{
             const response = await FIREBASE_AUTH.signInWithEmailAndPassword(email,password)
             // console.log(response.user.uid)
-            navigation.navigate('Home', response.user.uid)
+            navigation.navigate('Home')
         } catch(e){
             Alert.alert("Błąd logowania!","Niepoprawne dane logowania.")
         }
