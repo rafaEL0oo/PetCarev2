@@ -90,7 +90,7 @@ export function HomePage({ navigation }){
             // Prepare better loading screen... 
             <Text>Loading...</Text>
             )}
-        <CustomButton text="Add new pet" onButtonClick={()=>{navigation.navigate('Logon')}}/>
+        <CustomButton text="Add new pet" onButtonClick={()=>{navigation.navigate('AddPetForm')}}/>
         <CustomButton text="Back" onButtonClick={()=>{navigation.navigate('Logon')}}/>
         </View>
 }

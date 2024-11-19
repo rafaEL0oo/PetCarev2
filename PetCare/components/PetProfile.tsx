@@ -3,15 +3,27 @@ import { AnimalImage } from './AnimalImage';
 
 
 export function PetProfile({pets}){
-
+  pets = pets.map((item, index)=>({...item, "key": index}))
+  console.log(pets)
     return (
         <View>
           {pets.map(pet => (
-            <View>
+            <View style={styles.petAccount} key={pet.key}>
             <AnimalImage animal={pet.type}/>
-              <Text>{pet.name}</Text>
+            <Text style={styles.petName}>{pet.name}</Text>
             </View>
           ))}
         </View>
       );
 };
+
+const styles = StyleSheet.create({
+  petAccount: {
+      justifyContent: 'center'
+    },
+    petName: {
+      textAlign: 'center',
+      fontSize: 20,
+      fontWeight: 'bold'
+    }
+})

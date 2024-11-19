@@ -67,6 +67,7 @@ style={styles.background}
       </Picker>
       <TextInput style={styles.input} placeholder='Name' onChangeText={setPetName}/>
       <CustomButton text="Add Pet" buttonColor="#0F65F9" onButtonClick={AddPet}/>
+      <CustomButton text="Cancel" onButtonClick={()=>{navigation.navigate('Home')}}/>
       
 </View>
 }
